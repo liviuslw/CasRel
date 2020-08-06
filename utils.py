@@ -57,7 +57,7 @@ def extract_items(subject_model, object_model, tokenizer, text_in, id2rel, h_bar
         sub_tail = sub_tails[sub_tails >= sub_head]
         if len(sub_tail) > 0:
             sub_tail = sub_tail[0]
-            subject = tokens[sub_head: sub_tail]
+            subject = tokens[sub_head: sub_tail+1]
             subjects.append((subject, sub_head, sub_tail)) 
     if subjects:
         triple_list = []
@@ -74,7 +74,7 @@ def extract_items(subject_model, object_model, tokenizer, text_in, id2rel, h_bar
                 for obj_tail, rel_tail in zip(*obj_tails):
                     if obj_head <= obj_tail and rel_head == rel_tail:
                         rel = id2rel[rel_head]
-                        obj = tokens[obj_head: obj_tail]
+                        obj = tokens[obj_head: obj_tail+1]
                         obj = ''.join([i.lstrip("##") for i in obj])
                         obj = ' '.join(obj.split('[unused1]'))
                         triple_list.append((sub, rel, obj))
